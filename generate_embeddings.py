@@ -6,6 +6,7 @@ from esme.alphabet import Alphabet, Alphabet3
 from esme.data import FastaTokenDataset
 from esme.esm import ESM, ESMC
 from esme.pooling import partition_mean_pool
+from pathlib import Path
 
 def main(
     fasta_file,
@@ -50,7 +51,9 @@ def main(
 
     # 4. Create LMDB environment
     map_size = 1024 * 1024 * 1024 * 10  # 10 GB, adjust as needed
-    env = lmdb.open(output_file, map_size=map_size)
+    output_path = Path(output_file)
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    env = lmdb.open(str(output_path), map_size=map_size)
     # Write metadata once
     with env.begin(write=True) as txn:
         txn.put(b"__meta__/dtype", b"float16")
