@@ -92,8 +92,8 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description="Generate protein embeddings from a FASTA file and save to LMDB (packed by token budget).")
     parser.add_argument("fasta_file", type=str, nargs='?', default='../ContrasTED/data/CATH_S100_with_SF.fasta', help="Path to the input FASTA file.")
-    parser.add_argument("--model", type=str, default="esm2_8m", help="Name of the ESM model to use.")
-    parser.add_argument("--output", type=str, default="../data/CATH_S100_embeddings.lmdb", help="Path to save the output LMDB database.")
+    parser.add_argument("--model", type=str, default="esm2_650m", help="Name of the ESM model to use.")
+    parser.add_argument("--output", type=str, default="../ContrasTED/data/CATH_S100_embeddings.lmdb", help="Path to save the output LMDB database.")
     parser.add_argument("--tokens_per_batch", type=int, default=50_000, help="Max number of tokens per batch (approximate).")
     args = parser.parse_args()
 
