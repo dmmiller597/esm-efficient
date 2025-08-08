@@ -82,7 +82,8 @@ def main(
         with env.begin(write=True) as txn:
             for header, emb in zip(headers, pooled):
                 emb_np = emb.detach().cpu().to(dtype=torch.float16).numpy()  # store as float16
-                txn.put(header.encode('utf-8'), emb_np.tobytes())
+                key = f"{header}::{model_name}".encode('utf-8')
+                txn.put(key, emb_np.tobytes())
 
     print(f"Embeddings saved to {output_file}")
     print("Done.")
